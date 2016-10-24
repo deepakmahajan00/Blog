@@ -1,0 +1,27 @@
+# symfony 2
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/app/phpunit.xml
+/build/
+/vendor
+/bin/
+
+# oauth server
+/composer.phar
+/phpunit.phar
+
+# idea
+/nbproject/
+/.idea/
+
+# mac file system
+*~
+._*
+.DS_Store
+
+# vagrant
+/.vagrant/

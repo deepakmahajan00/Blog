@@ -1,0 +1,29 @@
+---
+- name: app | composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer
+
+- name: app | install parameters.yml
+  command: cp --no-clobber {{ root_folder }}/app/config/parameters.yml.dist {{ root_folder }}/app/config/parameters.yml
+  sudo: no
+
+- name: app | composer install
+  command: composer install --no-interaction --no-progress chdir={{ root_folder }}
+  sudo: no
+
+- name: app | schme drop
+  command: "{{ root_folder }}/bin/console doctrine:schema:drop --force --no-interaction"
+
+- name: app | migrate migrations
+  command: "{{ root_folder }}/bin/console doctrine:migrations:migrate 20161022122724 --no-interaction"
+
+- name: app | update schema
+  command: "{{ root_folder }}/bin/console doctrine:schema:update --force --no-interaction"
+
+- name: app | load fixtures
+  command: "{{ root_folder }}/bin/console doctrine:fixtures:load --no-interaction"
+
+- name: app | migrate migrations
+  command: "{{ root_folder }}/bin/console doctrine:migrations:migrate 20161023222631 --no-interaction"
+
+- name: app | Set symlink to project files
+  file: src={{ root_folder }} dest=/home/vagrant/{{ project_name }} state=link

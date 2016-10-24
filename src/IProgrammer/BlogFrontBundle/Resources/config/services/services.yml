@@ -1,0 +1,16 @@
+services:
+
+    iprogrammer.blog_front.service.user_service:
+        class: IProgrammer\BlogFrontBundle\Service\UserService
+        arguments:
+            - "@iprogrammer.blog_front.repositories.user_repository"
+
+    iprogrammer.blog_front.service.blog_service:
+        class: IProgrammer\BlogFrontBundle\Service\BlogService
+        arguments:
+            - "@iprogrammer.blog_front.repositories.blog_repository"
+
+    iprogrammer.blog_front.service.category_service:
+        class: IProgrammer\BlogFrontBundle\Service\CategoryService
+        arguments:
+            - "@iprogrammer.blog_front.repositories.category_repository"

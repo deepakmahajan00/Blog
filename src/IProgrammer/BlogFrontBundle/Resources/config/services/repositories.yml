@@ -1,0 +1,19 @@
+services:
+
+    iprogrammer.blog_front.repositories.user_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: [IProgrammer\BlogFrontBundle\Entity\User]
+
+    iprogrammer.blog_front.repositories.blog_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: [IProgrammer\BlogFrontBundle\Entity\Blog]
+
+    iprogrammer.blog_front.repositories.category_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: [IProgrammer\BlogFrontBundle\Entity\Category]

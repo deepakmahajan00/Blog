@@ -1,0 +1,26 @@
+---
+- name: mysql
+  apt: pkg=mysql-server state=latest
+  notify: start mysql
+
+- name: mysql | dependecies
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5-mysql
+    - python-mysqldb
+
+- name: mysql | python connector
+  apt: pkg=python-mysqldb state=latest
+
+- name: mysql | create user
+  mysql_user: name={{ db_user }} password={{ db_password }} host={{ item }} priv=*.*:ALL,GRANT state=present
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: mysql | create database
+  mysql_db: name={{ db_name }} login_user={{ db_user }} login_password={{ db_password }} state=present
+
+- name: mysql | config
+  template: src=../files/mysql/.my.cnf dest=/root/.my.cnf owner=root mode=0600

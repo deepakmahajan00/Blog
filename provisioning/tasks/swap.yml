@@ -1,0 +1,18 @@
+- name: swap | Write swapfile
+  command: fallocate -l {{ swap_file_size_mb }}M {{ swap_file_path }} creates={{ swap_file_path }}
+  register: write_swapfile
+
+- name: swap | Change swap file permissions
+  file: path="{{ swap_file_path }}" mode=0600
+
+- name: swap | Create swapfile
+  command: mkswap {{ swap_file_path }}
+  register: create_swapfile
+  when: write_swapfile.changed
+
+- name: swap | Enable swapfile
+  command: swapon {{ swap_file_path }}
+  when: create_swapfile.changed
+
+- name: swap | Add swapfile to fstab
+  lineinfile: dest=/etc/fstab line="{{ swap_file_path }}   none    swap    sw    0   0" state=present

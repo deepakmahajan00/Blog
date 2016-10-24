@@ -1,0 +1,14 @@
+{% extends 'IProgrammerBlogFrontBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Add new blog</h2>
+    <div class="addblog">
+
+        <div>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+{% endblock %}

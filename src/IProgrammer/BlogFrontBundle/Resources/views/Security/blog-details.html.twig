@@ -1,0 +1,17 @@
+{% extends 'IProgrammerBlogFrontBundle::layout.html.twig' %}
+
+{% block body %}
+    {% if blog is defined %}
+        {% for data in blog %}
+        <div class="rcorners6">
+            <section>
+                <h2>{{ data.title }}</h2>
+                <p>{{ data.description }}</p>
+                {% for category in data.category %}
+                    <a class="navigation-link" href="/blog-category/{{ category.id }}">{{ category.categoryName }}</a>
+                {% endfor %}
+            </section>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

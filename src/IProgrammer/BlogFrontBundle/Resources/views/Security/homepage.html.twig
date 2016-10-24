@@ -1,0 +1,32 @@
+{% extends 'IProgrammerBlogFrontBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="alignleft">
+        <a class="button" href="{{ path('new_blog') }}" rel="nofollow" style="float: left;">Add Blog</a>
+    </div>
+
+    <div class="alignright">
+        <span>Sort By :</span>
+        {% for category in categories %}
+            <a class="navigation-link" href="/{{ category.id }}">{{ category.categoryName }}</a>
+        {% endfor %}
+    </div>
+    <div>
+    {% for blog in blogs %}
+        <div class="rcorners2">
+            <section>
+                <h2><a class="link" href="/blog/{{ blog.id }}">{{ blog.title }}</a></h2>
+                <p>{{ blog.description }}</p>
+                <p>
+                    <span class="alignleft"><strong>Category :</strong>
+                    {% for category in blog.category %}
+                        <a class="navigation-link" href="/blog-category/{{ category.id }}">{{ category.categoryName }}</a>
+                    {% endfor %}
+                    </span>
+                    <span class="alignright"><strong>Created At :</strong> {{ blog.createdAt|date('Y-m-d H:i:s') }}</span>
+                </p>
+            </section>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+IProgrammerBlogFrontBundle_homepage:
+    pattern:  /user/{id}/blogs
+    defaults: { _controller: IProgrammerBlogFrontBundle:Default:homepage }
+
+user_routes:
+    resource: "@IProgrammerBlogFrontBundle/Controller"
+    type: annotation

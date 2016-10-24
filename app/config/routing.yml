@@ -1,0 +1,3 @@
+IProgrammerBlogFrontBundle:
+    resource: "@IProgrammerBlogFrontBundle/Resources/config/routing.yml"
+    prefix:   /

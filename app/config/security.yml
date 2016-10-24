@@ -1,0 +1,29 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        IProgrammer\BlogFrontBundle\Entity\User: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN:     ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN]
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        our_database_users:
+            entity: { class: IProgrammerBlogFrontBundle:User, property: username }
+
+    firewalls:
+        secured_area:
+            pattern:    ^/
+            form_login:
+                check_path: login_check
+                login_path: login_form
+            logout:
+                path:   logout
+                target: login_form
+            anonymous: ~
+
+    access_control:
+        #- { path: ^/new, roles: [ROLE_USER] }
+        #- { path: ^/create, roles: [ROLE_USER] }

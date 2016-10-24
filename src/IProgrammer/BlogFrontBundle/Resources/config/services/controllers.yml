@@ -1,0 +1,11 @@
+services:
+    iprogrammer.blog_front.abstract_controller:
+        class: IProgrammer\BlogFrontBundle\Controller\AbstractApiController
+        abstract:  true
+        arguments:
+            - "@fos_rest.view_handler"
+            - "@request_stack"
+
+    iprogrammer.blog_front.security_controller:
+        class: IProgrammer\BlogFrontBundle\Controller\SecurityController
+        parent: iprogrammer.blog_front.abstract_controller

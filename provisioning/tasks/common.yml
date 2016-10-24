@@ -1,0 +1,16 @@
+---
+- name: common | message of the day explaining server is under Ansible control.
+  action: copy src=files/motd/etc-update-motd-d-95-ansible dest=/etc/update-motd.d/95-ansible mode=755
+
+- name: common | apt-get update
+  apt: update_cache=yes
+
+- name: common | apt-get install 'dev tools'
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - vim
+    - curl
+    - git
+
+- name: common | ssh known_hosts
+  shell: ssh-keyscan -t rsa -H git.ocom.com > /etc/ssh/ssh_known_hosts

@@ -1,0 +1,37 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: no
+
+  vars:
+    project_name: "iprogrammer"  #TODO: replace with project name
+    root_folder: "/var/www/{{ project_name }}"
+    nginx_user: vagrant
+    nginx_group: vagrant
+    nginx_root: "{{ root_folder }}/web"
+    nginx_server_name: "{{ project_name }}.vm"
+    db_name: iprogrammer
+    db_user: root
+    db_password: root
+    swap_file_path: "/swapfile"
+    swap_file_size_mb: 1024
+
+  tasks:
+    - include: tasks/common.yml
+    - include: tasks/swap.yml
+    - include: tasks/php.yml
+    - include: tasks/mysql.yml
+    - include: tasks/nginx.yml
+    - include: tasks/app.yml
+
+  handlers:
+    - name: restart php
+      service: name=php5-fpm state=restarted
+
+    - name: start mysql
+      service: name=mysql state=started
+
+    - name: restart nginx
+      service: name=nginx state=restarted
